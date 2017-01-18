@@ -8,6 +8,9 @@ app.get("/",function(req,res){
 app.get("/cert",function(req,res){
     res.render("cert");
 });
+app.get("/priv",function(req,res){
+    res.render("privacypolicy");
+});
 app.listen(process.env.PORT, process.env.IP,function(){
     console.log("server started");
     console.log("listening to "+process.env);
