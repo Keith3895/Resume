@@ -11,6 +11,9 @@ app.get("/cert",function(req,res){
 app.get("/priv",function(req,res){
     res.render("privacypolicy");
 });
+app.get("/chatbot",function(req, res) {
+    res.render("chatbot"); 
+});
 app.listen(process.env.PORT, process.env.IP,function(){
     console.log("server started");
     console.log("listening to "+process.env);
