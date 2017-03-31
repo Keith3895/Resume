@@ -20,6 +20,9 @@ app.get("/chatbot",function(req, res) {
 app.get("/pheno",function(req, res) {
     res.render("pheno readup.ejs");
 });
+app.get("/review",function(req, res) {
+    res.render("review");
+});
 app.listen(process.env.PORT, process.env.IP,function(){
     console.log("server started");
     console.log("listening to "+process.env);
