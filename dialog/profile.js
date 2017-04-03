@@ -1,4 +1,6 @@
 var builder 		=		require('botbuilder');
+var User 			=		require('../models/user');
+var bigJump;
 var numExtract  =  function(str){
 	var ch,str1="";
 	for(i=0;i<str.length;i++){
@@ -16,13 +18,14 @@ profile = {
 			if(!args){
 				next();
 			}else{
-				session.send("ok so what would you want to know?");
-				session.endDialog();
+				bigJump = true;
+				next();
 			}
 		},
 		function(session,args,next){
 			if(!session.userData.name){
-				session.send('So let us get to know each other before starting');
+				session.send("Before we start...");
+				// session.send('So let us get to know each other before starting');
 				builder.Prompts.text(session,'What is your name?');
 			}
 			else{
@@ -32,24 +35,66 @@ profile = {
 		},
 		function(session,args,next){
 			if(args.response){
-				console.log(args);
-				session.userData.name= args.response;	
+				if(/my name is/i.test(args.response))
+				{
+					var match = /my name is/i.exec(args.response);
+					args.response = args.response.substring(match[0].length,args.response.length);
+				}
+				session.userData.name= args.response;
+				if(!session.userData.dbLook)	
+				{
+					User.findOne({'name':session.userData.name},function(err,Data){
+						if(err){
+							console.log(err);
+						}else{
+							// console.log(Data);
+							if(Data!=null){
+								session.userData.Data = Data;
+								session.send("Hi %s, are these your details:",session.userData.name);
+								session.send("age: %s",Data.age);
+								session.send(Data.email);
+								session.send("phone: %s",Data.phone);
+								// builder.Prompts.text(session,"yes?");
+								builder.Prompts.choice(session,"so?",
+								["yes","no"],
+						        {
+						            maxRetries: 3,
+						            retryPrompt: 'Not a valid option'
+						        });
+							}else{
+								next();
+							}
+						}
+					});
+				}
 			}
-			if (!session.userData.age) {
-				session.send("and how old are you?");
-				session.send('Please give it in a range');
-				builder.Prompts.text(session,'ex: (20-25)');
-			}
-			else{
+			else
+				next();
+		},
+		function(session,args,next){
+			// console.log(args.response.entity);
+			if(args.response){
+				if(args.response.entity == 'yes'){
+					session.userData.age = session.userData.Data.age;
+					session.userData.phone = session.userData.Data.phone;
+					session.userData.email = session.userData.Data.email;
+					session.userData.profile=true;
+					delete session.userData.Data;
+					session.send('ok');
+					next();
+				}else if(args.response.entity == 'no'){
+					delete session.userData.name;
+					session.userData.dbLook=true;
+					session.send("oh sorry..");
+					session.cancelDialog(0,'profile',session.userData.name);
+				}
+			}else{
 				next();
 			}
 		},
 		function(session,args,next){
-			if (args.response) {
-				session.userData.age = args.response;
-			}
 			if (!session.userData.phone) {
-				builder.Prompts.text(session,"If you dont mind, may I have your phone number to contact you?");
+				builder.Prompts.text(session,"If you dont mind, may I have your phone number to contact you with updates?");
 			}
 			else
 				next();
@@ -76,19 +121,54 @@ profile = {
 				console.log("here");
 				session.userData.phone=args.response;
 			}
+			if (!session.userData.age) {
+				builder.Prompts.text(session,"age?");
+			}
+			else{
+				next();
+			}
+		},
+		function(session,args,next){
+			if (args.response) {
+				session.userData.age = args.response;
+			}
+			if(!session.userData.email){
+				builder.Prompts.text(session,"What is your email address?");
+			}else
+				next();
+		},
+		function(session,args,next){
+			if(args.response){
+				session.userData.email = args.response;
+			}
 			next();
 		},
 		function(session,results){
 			console.log(session.userData.name);
 			console.log(session.userData.age);
 			console.log(session.userData.phone);
-			console.log(session.userData.greet);
-			session.userData.profile=true;
-			session.send("ok so what would you want to know?");
-			// session.send("Hi %s I think this is your number : %s",session.userData.name,session.userData.phone);
-			// session.send("Thank You! This is all I can do...");
-			// session.send("For now 😎");
-			session.endDialog();	
+			// session.send(session.userData.greet);
+			if(!session.userData.profile){
+				storeData = {
+					name		: 		session.userData.name,
+					age			: 		session.userData.age,
+					phone		: 		session.userData.phone,
+					email 		:       session.userData.email
+				}
+				User.create(storeData,function(err,newData){
+					console.log(newData);
+					if(err){
+						console.log(err);
+					}else{
+						newData.save();
+						session.userData.profile=true;
+					}
+				});	
+				
+			}
+			else{
+				session.endDialog();
+			}
 		}
 	]
 };

@@ -7,7 +7,7 @@ greet	=	{
 	Label		: 		'Greet',
 	Dialog   	: 		[
 		function(session,args,next){
-			// if(!args || args == undefined){
+			if(!args || args == undefined){
 				if(hr > 4 && hr<12){
 					session.send('Good morning!');
 				}else if(hr>=12 && hr < 17){
@@ -17,18 +17,16 @@ greet	=	{
 				}else{
 					session.send('Hi, at this late hour. good evening I suppose.');
 				}
-				// session.send("I am résumé bot.");
 				// next();
 			// }
 			// else
+			}
 				next();
 		},
 		function(session,args,next){
 			if(!session.userData.greet){
-				session.send("I am designed to answer all your questions about Keith Franklin");
-				session.send("I know everything about him, professionally P-).");	
-				// session.send("Pheno demo run");
-				// session.send("I'm still in development so please pardon my mistakes");
+				session.send("I am ResumeBot.");
+				session.send("I'm Created to help you with various aspects of learning about Keith.");
 			}
 			next();
 		},

@@ -8,7 +8,7 @@ var info	=	{
 		function(session, args, next){
 			var Subject= builder.EntityRecognizer.findEntity(args.entities, 'Subject');
 			if(!Subject){
-				builder.Prompts.text(session,"regarding what exactly do you want to know?");
+				builder.Prompts.text(session,"regarding what exactly do you want to know? \n like the projects he's worked on.. the languages he knows... ");
 			}
 			else{
 				next({response:Subject.entity});

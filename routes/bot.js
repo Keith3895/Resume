@@ -26,7 +26,7 @@ var connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD || 'AoRqywNmbqMMvKPM5GxphYG'
  });
 var bot = new builder.UniversalBot(connector);
-var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/704619d4-75c8-444d-adf8-8fc4f9b275da?subscription-key=e1c57927de8240149a148206f5050cc4&verbose=true&spellCheck=true&q=';
+var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/704619d4-75c8-444d-adf8-8fc4f9b275da?subscription-key=be85e120c3054989a8a6654c1f25b36c&timezoneOffset=0.0&verbose=true&q=';
 var recognizer = new builder.LuisRecognizer(model);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 
@@ -43,12 +43,16 @@ bot.dialog('webdev', WebDev.Dialog);
 bot.dialog('makeAppointment',MakeAppointment.Dialog);
 intents.onBegin(function(session){
 	session.beginDialog('greet',session.userData.greet);
+	if(session.userData.greet){
+		session.send("what else would you want to know");
+	}
 });
 
-intents.matches(/help/,Help.Dialog);
+
 intents.matches('info-general',GenralInfo.Dialog);
 intents.matches('info-subject',SubjectInfo.Dialog);
 intents.matches('Make-Appointment',MakeAppointment.Dialog);
+intents.matches(/help/,Help.Dialog);
 router.post("/",connector.listen());
 
 module.exports = router;
