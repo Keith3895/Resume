@@ -16,7 +16,8 @@ var bodyParser          =       require("body-parser");
 
 app.use(bodyParser.urlencoded({extended: true}));
 // mongoose.connect("mongodb://localhost/keith");
-mongoose.connect("mongodb://admin:resume@ds141410.mlab.com:49040/resume"); // public hosted mongo db
+mongoose.connect("mongodb://admin:resume@ds149040.mlab.com:49040/resume"); // public hosted mongo db
+// mongodb://<dbuser>:<dbpassword>@ds149040.mlab.com:49040/resume
 // app.use(session({
 //     secret: "Keith is",
 //     resave: false,
