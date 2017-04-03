@@ -1,5 +1,5 @@
 var builder			=		require("botbuilder");
-
+var Appointment		=		require('../models/appointment');
 
 
 var appointment	=	{
@@ -44,9 +44,13 @@ var appointment	=	{
 			if(args.response){
 				session.userData.App_datetime=args.response;
 			}
-			session.send(session.userData.App_Subject);
-			session.send(session.userData.App_target);
-			session.send(session.userData.App_datetime);
+			session.send("the appointment is set!");
+			appointment = {
+				subject : session.userData.App_Subject,
+				target  : session.userData.App_target,
+				date 	: session.userData.App_datetime  
+			}
+			
 		},
 	]
 };

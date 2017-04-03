@@ -22,8 +22,8 @@ var MakeAppointment		= 		require("../dialog/makeApointment");
 // Bot Setup
 //=========================================================
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID|| 'cf79fde4-0886-4a5f-9388-5afbeb608ede',
-    appPassword: process.env.MICROSOFT_APP_PASSWORD || 'AoRqywNmbqMMvKPM5GxphYG'
+    appId: process.env.MICROSOFT_APP_ID|| '15997bd8-0fdd-4338-b47e-a5151f9c5513',
+    appPassword: process.env.MICROSOFT_APP_PASSWORD || '9dKa6RPWwEOx6Wb9jNSm6NH'
  });
 var bot = new builder.UniversalBot(connector);
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/704619d4-75c8-444d-adf8-8fc4f9b275da?subscription-key=be85e120c3054989a8a6654c1f25b36c&timezoneOffset=0.0&verbose=true&q=';
