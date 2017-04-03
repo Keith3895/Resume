@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<title>Pheno bot stuff</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src='/materialize/js/angular.js'></script>
+	<script src='/materialize/js/route-angular.js'></script>
+	<link href='/materialize/css/font.css' rel='stylesheet'>
+	<!--Import materialize.css-->
+	<link type='text/css' rel='stylesheet' href='/materialize/css/materialize.min.css'  media='screen,projection'/>
+	<script type="text/javascript" src="/htmlfiles.js"></script>
+	<script type='text/javascript' src='/controller.js'></script>
+	<style type="text/css">
+		.fixed-action-btn{
+			bottom: 80%;
+		    right: 23px;
+		}
+		.side-nav a{
+			padding: 0 16px;
+		}
+	</style>
+</head>
+<body ng-app='pheno'>
+
+
+
+	<ul id='slide-out' class='side-nav' ng-controller='routes'>
+    <li><a href='#/' ng-click='first()'>Content</a></li>
+    <li>
+    	<ul class="collapsible" data-collapsible="accordion">
+		    <li>
+		      <div class="collapsible-header">Node JS</div>
+		      <div class="collapsible-body">
+		      	<ul>
+		      		<li><a href="#/node" ng-click='first()'>All</a></li>
+		      		<li><a href="#/node#var" ng-click='first()'>variables</a></li>
+				    <li><a href="#/node#loop" ng-click='first()'>loops</a></li>
+				    <li><a href="#/node#loop" ng-click='first()'>Branch</a></li>
+				    <li><a href="#/node#object" ng-click='first()'>Objects</a></li>
+				    <li><a href="#/node#mod" ng-click='first()'> Module</a></li>
+		      	</ul>
+		      </div>
+		    </li>
+		    <li>
+		      <div class="collapsible-header waves-effect">Express</div>
+		      <div class="collapsible-body">
+		      	<ul>
+		      		<li><a href="#/express" ng-click='first()'> All</a></li>
+				    <li><a href="#/express#load" ng-click='first()'>load module</a></li>
+				    <li><a href="#/express#rest" ng-click='first()'>REST</a></li>
+				    <li><a href="#/express#get" ng-click='first()'>Get and post</a></li>
+				    <li><a href="#/express#listen" ng-click='first()'> listen</a></li>
+				    <li><a href="#/express#router" ng-click='first()'> router</a></li>
+		      	</ul>
+		      	
+		      </div>
+		    </li>
+		    <li>
+		    	<div class="collapsible-header waves-effect">MongoDB</div>
+		      <div class="collapsible-body">
+		      	<ul>
+		      		<li><a href="#/mongo" ng-click='first()'> All</a></li>
+				    <li><a href="#/mongo#comp" ng-click='first()'>vs SQL</a></li>
+				    <li><a href="#/mongo#mongs" ng-click='first()'>API</a></li>
+				    <li><a href="#/mongo#schema" ng-click='first()'>Schema</a></li>
+		      	</ul>
+		      </div>
+		    </li>
+		  </ul>
+
+    </li>
+    <li><a class='waves-effect' href='#/json' ng-click='first()'>JSON</a></li>
+    <li>
+				<a class=' waves-effect ' href='#/botbuilder' ng-click='first()'>botbuilder</a>
+			</li>
+			<li>
+				<a class=' waves-effect ' href='#/luis' ng-click='first()'>LUIS</a>
+			</li>
+  </ul>
+  
+  <div class="fixed-action-btn horizontal click-to-toggle">
+    <a href='#' data-activates='slide-out' class='button-collapse btn-floating btn-large red'>
+    	<i class='material-icons'>menu</i>
+    </a>
+  </div>
+<div ng-view></div>
+
+
+
+
+
+  <script type='text/javascript' src='/materialize/js/jquery.js'></script>
+<script type='text/javascript' src='/materialize/js/materialize.min.js'></script>
+<script type='text/javascript' src='/materialize/js/an-met.js'></script>
+
+<script type='text/javascript'>	$('.button-collapse').sideNav();
+	 $('.button-collapse').click();</script>
+
+</body>
+</html>

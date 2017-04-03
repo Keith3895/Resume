@@ -51,6 +51,12 @@ app.get("/priv",function(req,res){
 app.get("/chatbot",function(req, res) {
     res.render("chatbot"); 
 });
+app.get("/pheno",function(req, res) {
+    res.render("pheno readup.ejs");
+});
+app.get("/review",function(req, res) {
+    res.render("review");
+});
 
 
 app.post('/login',function(req,res){
@@ -71,9 +77,11 @@ app.post('/login',function(req,res){
    });
 });
 
-app.listen(3000, '127.0.0.1',function(a){
+// app.listen(3000, '127.0.0.1',function(a){
+//     console.log("server started");
+// });
+
+app.listen(process.env.PORT, process.env.IP,function(){
     console.log("server started");
 });
-
-
 
