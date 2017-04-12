@@ -253,3 +253,31 @@ $('#topHead').on('inview', function(event, isInView) {
   }
 });
 
+
+
+
+$( "#go" ).click(function() {
+			$(this).toggleClass('tr');
+
+			if($(this).hasClass('tr')){
+				$('.chat').addClass('tri-right');
+				$( ".chat" ).animate({
+				    width: "500px",
+				    height:'450px',
+				    // opaxcity: 0.4,
+				    marginRight: "1.5em",
+				    fontSize: "3em",
+				    borderWidth: "10px"
+				  }, 1500 );
+			}else{
+				$('.chat').removeClass('tri-right');
+				$( ".chat" ).animate({
+				    width: "0px",
+				    height:'0px',
+				    opaxcity: 0.4,
+				    marginRight: "0in",
+				    fontSize: "0em",
+				    borderWidth: "0px"
+				  }, 1500 );
+			}
+		});

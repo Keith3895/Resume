@@ -37,9 +37,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 
-
-
-
 app.get("/",function(req,res){
     res.render("index");
 });
@@ -59,24 +56,6 @@ app.get("/review",function(req, res) {
     res.render("review");
 });
 
-
-app.post('/login',function(req,res){
-    console.log(req.body.UName);
-    console.log(req.body.email);
-   var userData = {
-       Name : req.body.UName,
-       email :  req.body.email
-   }; 
-   
-   User.create(userData,function(err,newUser){
-       if(err){
-           console.log(err);
-       }
-       else{
-           newUser.save();
-       }
-   });
-});
 
 // app.listen(3000, '127.0.0.1',function(a){
 //     console.log("server started");

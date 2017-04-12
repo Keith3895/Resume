@@ -71,8 +71,8 @@ var pieData = [
       color: '#811BD9'
    },
    {
-      value: 5,
-      label: 'Angular.js (<5 yet to start)',
+      value: 27,
+      label: 'Angular.js',
       color: '#b2e128'
    },
    {
